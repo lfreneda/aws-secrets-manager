@@ -1,0 +1,31 @@
+{
+  "name": "@lfreneda/aws-secrets-manager",
+  "version": "0.0.1",
+  "description": "High level interface for AWS Secrets Manager",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo not-found"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfreneda/aws-secrets-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lfreneda/aws-secrets-manager/issues"
+  },
+  "homepage": "https://github.com/lfreneda/aws-secrets-manager#readme",
+  "dependencies": {
+    "aws-sdk": "^2.551.0",
+    "node-cache": "^4.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
