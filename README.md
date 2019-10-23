@@ -32,7 +32,7 @@ When using `InMemoryCacheSecretsManagerDecorator` results from aws secret manage
 
 If you are using secrets for RDS credentials, there is also a helper to convert db settings to connection string: `toConnectionString`
 
-# Running tests
+## Running tests
 
 You should have installed jest as global `npm install jest -g` and then just run:
 
