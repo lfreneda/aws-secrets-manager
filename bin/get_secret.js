@@ -1,7 +1,7 @@
-const { SecretManager } = require('../src/')
+const { SecretsManager } = require('../src/')
 
 const run = async () => {
-  const secretManager = new SecretManager({
+  const secretManager = new SecretsManager({
     region: 'us-east-1'
   })
   const secretValue = await secretManager.getSecretValue('sample/key')

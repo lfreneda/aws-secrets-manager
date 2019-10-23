@@ -4,20 +4,20 @@ const secretValueCache = new NodeCache({
   useClones: true
 })
 
-class InMemoryCacheSecretManagerDecorator {
+class InMemoryCacheSecretsManagerDecorator {
   constructor (secretsManager) {
     this.secretsManager = secretsManager
   }
 
-  async getScrectValue (secretId) {
+  async getSecretValue (secretId) {
     let secretValue = secretValueCache.get(`aws:secret:${secretId}`)
     if (secretValue) {
       return secretValue
     }
-    secretValue = await this.secretsManager.getSecret(secretId)
+    secretValue = await this.secretsManager.getSecretValue(secretId)
     secretValueCache.set(`aws:secret:${secretId}`, secretValue)
     return secretValue
   }
 }
 
-module.exports = InMemoryCacheSecretManagerDecorator
+module.exports = InMemoryCacheSecretsManagerDecorator

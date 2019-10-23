@@ -1,6 +1,6 @@
-const SecretManager = require('./secretsManager')
-const InMemoryCacheSecretManagerDecorator = require('./inMemoryCacheSecretManagerDecorator')
+const SecretsManager = require('./secretsManager')
+const InMemoryCacheSecretsManagerDecorator = require('./inMemoryCacheSecretsManagerDecorator')
 module.exports = {
-  SecretManager,
-  InMemoryCacheSecretManagerDecorator
+  SecretsManager,
+  InMemoryCacheSecretsManagerDecorator
 }

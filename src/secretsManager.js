@@ -1,13 +1,13 @@
 const aws = require('aws-sdk')
 
-class SecretManager {
+class SecretsManager {
   constructor (awsSecretsManagerOptions) {
     this.awsSecretsManager = new aws.SecretsManager(awsSecretsManagerOptions)
   }
 
-  async getScrectValue (secretId) {
+  async getSecretValue (secretId) {
     try {
-      const data = await this.clientSecretsManager.getSecretValue({
+      const data = await this.awsSecretsManager.getSecretValue({
         SecretId: secretId
       }).promise()
 
@@ -27,4 +27,4 @@ class SecretManager {
   }
 }
 
-module.exports = SecretManager
+module.exports = SecretsManager

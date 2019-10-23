@@ -1,2 +1,31 @@
 # aws-secrets-manager
-:zipper_mouth_face: High level interface for AWS Secrets Manager
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/05eab62203d074210414/maintainability)](https://codeclimate.com/github/lfreneda/aws-secrets-manager/maintainability)
+
+:key: High level interface (with cache) for AWS Secrets Manager
+
+## Install
+
+```
+npm install @lfreneda/aws-secrets-manager --save
+```
+
+## How to use
+
+```js
+const { SecretsManager } = require('@lfreneda/aws-secrets-manager')
+const secretsManager = new SecretsManager({ region: 'us-east-1' })
+const secretValue = await secretsManager.getSecretValue('sample/key')
+```
+
+There is also a in memory cache implementation as _"[Decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern)"_
+ using `node-cache` package:
+
+```js
+const { SecretsManager, InMemoryCacheSecretsManagerDecorator } = require('@lfreneda/aws-secrets-manager')
+const secretsManager = new SecretsManager({ region: 'us-east-1' })
+const cachedSecretManager = new InMemoryCacheSecretsManagerDecorator(secretsManager) 
+const secretValue = await cachedSecretManager.getSecretValue('sample/key')
+```
+
+When using `InMemoryCacheSecretsManagerDecorator` results from aws secret manager service will be cached for 5 minutes :)
