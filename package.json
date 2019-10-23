@@ -4,7 +4,7 @@
   "description": "High level interface (with cache) for AWS Secrets Manager",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo not-found",
+    "test": "jest test/",
     "lint": "./node_modules/.bin/eslint --ext .js src/"
   },
   "repository": {

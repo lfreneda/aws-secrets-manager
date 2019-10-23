@@ -29,3 +29,13 @@ const secretValue = await cachedSecretManager.getSecretValue('sample/key')
 ```
 
 When using `InMemoryCacheSecretsManagerDecorator` results from aws secret manager service will be cached for 5 minutes :)
+
+If you are using secrets for RDS credentials, there is also a helper to convert db settings to connection string: `toConnectionString`
+
+# Running tests
+
+You should have installed jest as global `npm install jest -g` and then just run:
+
+```
+npm test
+```
