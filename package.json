@@ -1,6 +1,6 @@
 {
   "name": "@lfreneda/aws-secrets-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "High level interface (with cache) for AWS Secrets Manager",
   "main": "src/index.js",
   "scripts": {
