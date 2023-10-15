@@ -1,0 +1,48 @@
+name: Continuous Integration and Deployment
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci-cd:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 18]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: ./package-lock.json
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Tests
+        run: npm run test
+
+      - name: Get the version
+        id: get_version
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push' && matrix.node-version == 18
+        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
+
+      - name: Create an GH Release
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push' && matrix.node-version == 18
+        run: gh release create -t ${{ steps.get_version.outputs.VERSION }} -n ${{ steps.get_version.outputs.VERSION }} -R ${{ github.repository }} ${{ steps.create_release.outputs.upload_url }}
