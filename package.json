@@ -1,11 +1,19 @@
 {
   "name": "@lfreneda/aws-secrets-manager",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "High level interface (with cache) for AWS Secrets Manager",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest test/",
-    "lint": "./node_modules/.bin/eslint --ext .js src/"
+    "test": "NODE_ENV=dev vitest run --dir ./test",
+    "lint": "DEBUG=eslint:cli-engine eslint src --ext ts && prettier --check src",
+    "lint-fix": "DEBUG=eslint:cli-engine eslint src --ext ts --fix && prettier --write src",
+    "build-clean": "echo 'Cleaning dist folder...' && del-cli dist .esbuild",
+    "build-check": "echo 'Checking TypeScript...' && tsc --skipLibCheck --outDir dist",
+    "build-esm": "echo 'Transpiling with SWC...' && swc ./src --out-dir ./dist",
+    "build": "npm run build-clean && npm run build-check && npm run build-esm",
+    "prepack": "npm run build",
+    "publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -18,22 +26,28 @@
   },
   "homepage": "https://github.com/lfreneda/aws-secrets-manager#readme",
   "dependencies": {
-    "aws-sdk": "^2.551.0",
-    "node-cache": "^4.2.1"
+    "@aws-sdk/client-secrets-manager": "3.428.0",
+    "node-cache": "5.1.2"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "husky": "^3.0.9"
+    "@swc/cli": "0.1.57",
+    "@swc/core": "1.3.3",
+    "@types/node": "18.7.23",
+    "@types/sinon": "10.0.19",
+    "del-cli": "5.1.0",
+    "eslint": "8.51.0",
+    "eslint-config-neon": "0.1.57",
+    "husky": "3.1.0",
+    "sinon": "16.1.0",
+    "ts-node": "10.9.1",
+    "vitest": "0.32.2"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint"
+      "pre-commit": "npm run lint"
     }
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
